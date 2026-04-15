@@ -26,8 +26,6 @@ export async function subscribeAction() {
 
   revalidatePath("/");
   revalidatePath("/search");
-
-  return { success: true };
 }
 
 export async function unsubscribeAction() {
@@ -41,6 +39,4 @@ export async function unsubscribeAction() {
 
   revalidatePath("/");
   revalidatePath("/search");
-
-  return { success: true };
 }

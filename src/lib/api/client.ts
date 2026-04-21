@@ -29,7 +29,27 @@ export async function apiRequest(path: string, init: RequestInit = {}) {
 
 export async function apiJson<T>(path: string, init: RequestInit = {}) {
   const response = await apiRequest(path, init);
-  const payload = (await response.json()) as ApiEnvelope<T>;
+  const contentType = response.headers.get("content-type") ?? "";
+  const rawBody = await response.text();
+  let payload: ApiEnvelope<T> | null = null;
+
+  if (rawBody) {
+    try {
+      payload = JSON.parse(rawBody) as ApiEnvelope<T>;
+    } catch {
+      if (contentType.includes("text/html") || rawBody.startsWith("<!doctype html")) {
+        throw new Error(
+          `Received an HTML response from the news API for ${path}. Check NEWS_API_BYPASS_TOKEN and API protection settings.`,
+        );
+      }
+
+      throw new Error(`Received a non-JSON response from the news API for ${path}.`);
+    }
+  }
+
+  if (!payload) {
+    throw new Error(`The news API returned an empty response for ${path}.`);
+  }
 
   if (!response.ok || !payload.success) {
     const error = payload.error as ApiError | undefined;

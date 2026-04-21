@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getTrendingArticles } from "@/lib/dal/articles";
 import { formatDate, getArticleHref } from "@/lib/utils";
 
+import { EmptyState } from "../ui/EmptyState";
 import { SectionHeading } from "../ui/SectionHeading";
 
 type TrendingArticlesProps = {
@@ -10,7 +11,16 @@ type TrendingArticlesProps = {
 };
 
 export async function TrendingArticles({ currentArticleId }: TrendingArticlesProps) {
-  const articles = await getTrendingArticles([currentArticleId]);
+  const articles = await getTrendingArticles([currentArticleId]).catch(() => null);
+
+  if (!articles) {
+    return (
+      <EmptyState
+        title="Trending stories are taking longer than usual"
+        description="We couldn't load the related stories right now. The rest of the article is still available."
+      />
+    );
+  }
 
   return (
     <section className="space-y-5">

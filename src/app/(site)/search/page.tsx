@@ -22,6 +22,19 @@ type SearchPageProps = {
   }>;
 };
 
+function SearchFormFallback() {
+  return (
+    <div
+      aria-label="Loading search form"
+      className="flex min-h-24 animate-pulse flex-col gap-3 rounded-3xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm md:flex-row"
+    >
+      <div className="min-h-12 flex-1 rounded-full bg-[rgba(17,17,17,0.06)]" />
+      <div className="min-h-12 w-full rounded-full bg-[rgba(17,17,17,0.06)] md:w-52" />
+      <div className="min-h-12 w-full rounded-full bg-[rgba(17,17,17,0.06)] md:w-32" />
+    </div>
+  );
+}
+
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { category, query } = await searchParams;
 
@@ -33,7 +46,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </p>
         <h1 className="text-4xl font-semibold">Discover the next story worth reading</h1>
       </header>
-      <SearchForm initialCategory={category} initialQuery={query} />
+      <Suspense fallback={<SearchFormFallback />}>
+        <SearchForm initialCategory={category} initialQuery={query} />
+      </Suspense>
       <Suspense
         key={`${category ?? "all"}:${query ?? ""}`}
         fallback={<SkeletonCard label="Loading search results" />}

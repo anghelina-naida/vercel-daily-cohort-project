@@ -31,14 +31,31 @@ export async function getArticleByIdentifier(identifier: string) {
 }
 
 export async function getTrendingArticles(excludeIds: string[] = []) {
+  "use cache";
+
+  cacheTag("articles");
+  cacheTag("trending-articles");
+  cacheLife({ expire: 60 });
+
   return fetchTrendingArticles(excludeIds);
 }
 
 export async function getBreakingNews() {
+  "use cache";
+
+  cacheTag("breaking-news");
+  cacheLife({ expire: 60 });
+
   return fetchBreakingNews();
 }
 
 export async function searchArticles(input: SearchArticlesInput = {}) {
+  "use cache";
+
+  cacheTag("articles");
+  cacheTag("search-results");
+  cacheLife({ expire: 300 });
+
   return fetchArticles({
     category: input.category,
     limit: input.limit ?? 5,

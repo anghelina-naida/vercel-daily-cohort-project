@@ -8,7 +8,7 @@ type SearchFormProps = {
 };
 
 export async function SearchForm({ initialCategory, initialQuery }: SearchFormProps) {
-  const categories = await getCategories();
+  const categories = await getCategories().catch(() => []);
 
   return (
     <form action="/search" className="flex flex-col gap-3 rounded-3xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm md:flex-row">

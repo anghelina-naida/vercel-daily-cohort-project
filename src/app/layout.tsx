@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import { rootMetadata } from "@/lib/metadata";
 
@@ -8,6 +8,9 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = rootMetadata;
+export const viewport: Viewport = {
+  themeColor: "#1a1a2e",
+};
 
 type RootLayoutProps = {
   children: ReactNode;

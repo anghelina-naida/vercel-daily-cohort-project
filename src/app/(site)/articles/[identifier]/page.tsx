@@ -2,14 +2,12 @@ import { Suspense } from "react";
 
 import { notFound } from "next/navigation";
 
-import { ArticleContent } from "@/app/components/article/ArticleContent";
+import { ArticleAccessSection } from "@/app/components/article/ArticleAccessSection";
 import { ArticleHeader } from "@/app/components/article/ArticleHeader";
-import { PaywallCTA } from "@/app/components/article/PaywallCTA";
 import { TeaserContent } from "@/app/components/article/TeaserContent";
 import { TrendingArticles } from "@/app/components/article/TrendingArticles";
 import { SkeletonCard } from "@/app/components/ui/SkeletonCard";
 import { getArticleByIdentifier } from "@/lib/dal/articles";
-import { canViewFullArticle } from "@/lib/dal/subscription";
 import { buildArticleMetadata } from "@/lib/metadata";
 
 type ArticlePageProps = {
@@ -17,6 +15,21 @@ type ArticlePageProps = {
     identifier: string;
   }>;
 };
+
+function ArticleAccessFallback() {
+  return (
+    <section
+      aria-label="Loading article access"
+      className="grid gap-4 rounded-[2rem] border border-[var(--border)] bg-[var(--card)] p-6 shadow-sm"
+    >
+      <div className="h-6 w-36 animate-pulse rounded-full bg-[rgba(17,17,17,0.08)]" />
+      <div className="h-4 w-full animate-pulse rounded-full bg-[rgba(17,17,17,0.08)]" />
+      <div className="h-4 w-[92%] animate-pulse rounded-full bg-[rgba(17,17,17,0.08)]" />
+      <div className="h-4 w-[84%] animate-pulse rounded-full bg-[rgba(17,17,17,0.08)]" />
+      <div className="mt-4 h-14 w-56 animate-pulse rounded-2xl bg-[rgba(17,17,17,0.08)]" />
+    </section>
+  );
+}
 
 export async function generateMetadata({ params }: ArticlePageProps) {
   const { identifier } = await params;
@@ -33,24 +46,28 @@ export async function generateMetadata({ params }: ArticlePageProps) {
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { identifier } = await params;
+  const article = await getArticleByIdentifier(identifier).catch(() => null);
 
-  try {
-    const [article, isSubscribed] = await Promise.all([
-      getArticleByIdentifier(identifier),
-      canViewFullArticle(),
-    ]);
-
-    return (
-      <article className="grid gap-10">
-        <ArticleHeader article={article} />
-        {isSubscribed ? <ArticleContent blocks={article.content} /> : <TeaserContent article={article} />}
-        {!isSubscribed && <PaywallCTA />}
-        <Suspense fallback={<SkeletonCard label="Loading trending articles" />}>
-          <TrendingArticles currentArticleId={article.id} />
-        </Suspense>
-      </article>
-    );
-  } catch {
+  if (!article) {
     notFound();
   }
+
+  const firstParagraphIndex = article.content.findIndex((block) => block.type === "paragraph");
+  const continuationBlocks =
+    firstParagraphIndex === -1
+      ? article.content
+      : article.content.filter((_, index) => index !== firstParagraphIndex);
+
+  return (
+    <article className="grid gap-10">
+      <ArticleHeader article={article} />
+      <TeaserContent article={article} />
+      <Suspense fallback={<ArticleAccessFallback />}>
+        <ArticleAccessSection continuationBlocks={continuationBlocks} />
+      </Suspense>
+      <Suspense fallback={<SkeletonCard label="Loading trending articles" />}>
+        <TrendingArticles currentArticleId={article.id} />
+      </Suspense>
+    </article>
+  );
 }

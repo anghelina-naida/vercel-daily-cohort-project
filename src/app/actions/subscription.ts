@@ -16,10 +16,23 @@ import {
 export async function subscribeAction() {
   let token = await getSubscriptionTokenFromCookie();
 
-  if (!token) {
-    const createdSubscription = await createSubscription();
-    token = createdSubscription.token;
+  if (token) {
+    try {
+      await activateSubscription(token);
+      await setSubscriptionTokenCookie(token);
+
+      revalidatePath("/");
+      revalidatePath("/search");
+
+      return;
+    } catch {
+      await clearSubscriptionTokenCookie();
+      token = undefined;
+    }
   }
+
+  const createdSubscription = await createSubscription();
+  token = createdSubscription.token;
 
   await activateSubscription(token);
   await setSubscriptionTokenCookie(token);
@@ -32,7 +45,12 @@ export async function unsubscribeAction() {
   const token = await getSubscriptionTokenFromCookie();
 
   if (token) {
-    await deactivateSubscription(token);
+    try {
+      await deactivateSubscription(token);
+    } catch {
+      // If the token is already stale, clearing the cookie is still enough
+      // to complete the local unsubscribe flow.
+    }
   }
 
   await clearSubscriptionTokenCookie();

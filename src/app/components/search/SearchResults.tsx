@@ -13,7 +13,16 @@ export async function SearchResults({ category, query }: SearchResultsProps) {
     category,
     limit: 5,
     query,
-  });
+  }).catch(() => null);
+
+  if (!articles) {
+    return (
+      <EmptyState
+        description="The search service is temporarily unavailable. Please try again in a moment."
+        title="Search is taking a quick break"
+      />
+    );
+  }
 
   if (articles.length === 0) {
     return (

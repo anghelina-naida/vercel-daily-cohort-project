@@ -5,6 +5,7 @@ import { getSiteUrl } from "./utils";
 
 export const rootMetadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  generator: "vnews-cert-v3",
   title: {
     default: "Vercel Daily",
     template: "%s | Vercel Daily",

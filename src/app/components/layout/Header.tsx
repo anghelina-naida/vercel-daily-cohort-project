@@ -1,9 +1,9 @@
+import { Suspense } from "react";
+
 import Link from "next/link";
 
 import { Navigation } from "./Navigation";
 import { SubscriptionIndicator } from "./SubscriptionIndicator";
-import {Suspense} from "react";
-import {SubscribeButton} from "@/app/components/subscription/SubscribeButton";
 
 export function Header() {
   return (
@@ -22,7 +22,7 @@ export function Header() {
 
         <div className="flex items-center">
           <Suspense fallback={<div className="h-10 w-28 rounded-xl border border-[var(--border)] bg-white" />}>
-          <SubscriptionIndicator />
+            <SubscriptionIndicator />
           </Suspense>
         </div>
       </div>

@@ -8,7 +8,11 @@
   --border: #e5e5e5;
   --accent: #111111;
   --accent-foreground: #ffffff;
-  --highlight: #111111;
+  --highlight: #6d6d73;
+  --article-serif:
+    Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --article-ink: #242424;
+  --article-muted: #6b6b6b;
 }
 
 * {

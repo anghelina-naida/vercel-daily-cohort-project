@@ -1,8 +1,12 @@
+import { cache } from "react";
+
+import { headers } from "next/headers";
+
 import { fetchSubscriptionStatus } from "@/lib/api/subscription";
 
 import { getSubscriptionTokenFromCookie } from "../subscription";
 
-export async function getSubscriptionStatus() {
+export const getSubscriptionStatus = cache(async () => {
   const token = await getSubscriptionTokenFromCookie();
 
   if (!token) {
@@ -14,9 +18,16 @@ export async function getSubscriptionStatus() {
   } catch {
     return null;
   }
-}
+});
 
 export async function canViewFullArticle() {
+  const requestHeaders = await headers();
+  const accessMode = requestHeaders.get("x-vercel-daily-access");
+
+  if (accessMode === "paywalled") {
+    return false;
+  }
+
   const subscription = await getSubscriptionStatus();
   return subscription?.status === "active";
 }

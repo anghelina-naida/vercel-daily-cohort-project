@@ -1,11 +1,10 @@
-import { getSubscriptionStatus } from "@/lib/dal/subscription";
+import { hasSubscriptionTokenCookie } from "@/lib/subscription";
 
 import { SubscribeButton } from "../subscription/SubscribeButton";
 import { UnsubscribeButton } from "../subscription/UnsubscribeButton";
 
 export async function SubscriptionIndicator() {
-  const status = await getSubscriptionStatus();
-  const isActive = status?.status === "active";
+  const hasSubscriptionToken = await hasSubscriptionTokenCookie();
 
-  return isActive ? <UnsubscribeButton /> : <SubscribeButton />;
+  return hasSubscriptionToken ? <UnsubscribeButton /> : <SubscribeButton />;
 }

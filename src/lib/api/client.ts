@@ -27,7 +27,7 @@ export async function apiRequest(path: string, init: RequestInit = {}) {
   });
 }
 
-export async function apiJson<T>(path: string, init: RequestInit = {}) {
+export async function apiEnvelope<T>(path: string, init: RequestInit = {}) {
   const response = await apiRequest(path, init);
   const contentType = response.headers.get("content-type") ?? "";
   const rawBody = await response.text();
@@ -55,6 +55,12 @@ export async function apiJson<T>(path: string, init: RequestInit = {}) {
     const error = payload.error as ApiError | undefined;
     throw new Error(error?.message ?? `Request failed with status ${response.status}`);
   }
+
+  return payload;
+}
+
+export async function apiJson<T>(path: string, init: RequestInit = {}) {
+  const payload = await apiEnvelope<T>(path, init);
 
   return payload.data;
 }

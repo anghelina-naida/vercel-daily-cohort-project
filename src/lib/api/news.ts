@@ -1,6 +1,6 @@
-import type { Article, Category, BreakingNews, SearchArticlesInput } from "@/lib/types";
+import type { Article, ArticleList, Category, BreakingNews, SearchArticlesInput } from "@/lib/types";
 
-import { apiJson } from "./client";
+import { apiEnvelope, apiJson } from "./client";
 
 export async function fetchArticles(input: SearchArticlesInput = {}) {
   const searchParams = new URLSearchParams();
@@ -23,7 +23,12 @@ export async function fetchArticles(input: SearchArticlesInput = {}) {
 
   const query = searchParams.toString();
 
-  return apiJson<Article[]>(`/articles${query ? `?${query}` : ""}`);
+  const payload = await apiEnvelope<Article[]>(`/articles${query ? `?${query}` : ""}`);
+
+  return {
+    articles: payload.data,
+    pagination: payload.meta?.pagination,
+  } satisfies ArticleList;
 }
 
 export async function fetchFeaturedArticles(limit = 6) {

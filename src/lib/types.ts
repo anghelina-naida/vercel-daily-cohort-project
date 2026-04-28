@@ -105,6 +105,11 @@ export type ApiEnvelope<T> = {
   success: boolean;
 };
 
+export type ArticleList = {
+  articles: Article[];
+  pagination?: Pagination;
+};
+
 export type SearchArticlesInput = {
   category?: string;
   limit?: number;

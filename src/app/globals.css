@@ -60,3 +60,98 @@ select {
 button {
   cursor: pointer;
 }
+
+.nyan-progress {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.nyan-progress-track {
+  position: relative;
+  display: block;
+  height: 2.75rem;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 15, 16, 0.08);
+  background: #050506;
+}
+
+.nyan-progress-track::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 28%, #ffffff 0 0.08rem, transparent 0.1rem),
+    radial-gradient(circle at 31% 74%, #ffffff 0 0.07rem, transparent 0.09rem),
+    radial-gradient(circle at 58% 35%, #ffffff 0 0.07rem, transparent 0.09rem),
+    radial-gradient(circle at 82% 64%, #ffffff 0 0.08rem, transparent 0.1rem);
+  content: "";
+  opacity: 0.75;
+}
+
+.nyan-rainbow {
+  position: absolute;
+  top: 0.96rem;
+  left: -78%;
+  width: 78%;
+  height: 0.84rem;
+  background:
+    linear-gradient(
+      to bottom,
+      #ff3b30 0 16.66%,
+      #ff9500 16.66% 33.33%,
+      #ffcc00 33.33% 50%,
+      #34c759 50% 66.66%,
+      #007aff 66.66% 83.33%,
+      #af52de 83.33% 100%
+    );
+  animation: nyan-rainbow-slide 1.4s linear infinite;
+  image-rendering: pixelated;
+}
+
+.nyan-cat {
+  position: absolute;
+  top: 0;
+  left: -8.75rem;
+  width: 8.75rem;
+  height: 2.75rem;
+  animation: nyan-cat-slide 1.4s linear infinite;
+  image-rendering: pixelated;
+  object-fit: cover;
+  object-position: center;
+}
+
+@keyframes nyan-cat-slide {
+  0% {
+    left: -8.75rem;
+  }
+
+  100% {
+    left: calc(100% + 0.25rem);
+  }
+}
+
+@keyframes nyan-rainbow-slide {
+  0% {
+    left: -78%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nyan-cat,
+  .nyan-rainbow {
+    animation: none;
+  }
+
+  .nyan-cat {
+    left: calc(100% - 8.75rem);
+  }
+
+  .nyan-rainbow {
+    left: 0;
+    width: 100%;
+  }
+}

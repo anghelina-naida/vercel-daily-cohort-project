@@ -17,10 +17,27 @@ export const metadata: Metadata = {
 
 type SearchPageProps = {
   searchParams: Promise<{
+    page?: string | string[];
     category?: string;
-    query?: string;
+    query?: string | string[];
   }>;
 };
+
+function getSearchParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function getPositivePage(value: string | string[] | undefined) {
+  const page = Number.parseInt(getSearchParam(value) ?? "1", 10);
+
+  return Number.isFinite(page) && page > 0 ? page : 1;
+}
+
+function getOptionalSearchParam(value: string | string[] | undefined) {
+  const param = getSearchParam(value)?.trim();
+
+  return param || undefined;
+}
 
 function SearchFormFallback() {
   return (
@@ -36,7 +53,10 @@ function SearchFormFallback() {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const { category, query } = await searchParams;
+  const { category, page, query } = await searchParams;
+  const currentPage = getPositivePage(page);
+  const currentCategory = getOptionalSearchParam(category);
+  const currentQuery = getOptionalSearchParam(query);
 
   return (
     <section className="flex flex-col gap-8">
@@ -47,13 +67,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         <h1 className="text-4xl font-semibold">Discover the next story worth reading</h1>
       </header>
       <Suspense fallback={<SearchFormFallback />}>
-        <SearchForm initialCategory={category} initialQuery={query} />
+        <SearchForm initialCategory={currentCategory} initialQuery={currentQuery} />
       </Suspense>
       <Suspense
-        key={`${category ?? "all"}:${query ?? ""}`}
+        key={`${currentCategory ?? "all"}:${currentQuery ?? ""}:${currentPage}`}
         fallback={<SkeletonCard label="Loading search results" />}
       >
-        <SearchResults category={category} query={query} />
+        <SearchResults category={currentCategory} page={currentPage} query={currentQuery} />
       </Suspense>
     </section>
   );

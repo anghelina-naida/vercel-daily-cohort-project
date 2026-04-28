@@ -1,7 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-
 import {
   activateSubscription,
   createSubscription,
@@ -21,9 +19,6 @@ export async function subscribeAction() {
       await activateSubscription(token);
       await setSubscriptionTokenCookie(token);
 
-      revalidatePath("/");
-      revalidatePath("/search");
-
       return;
     } catch {
       await clearSubscriptionTokenCookie();
@@ -36,9 +31,6 @@ export async function subscribeAction() {
 
   await activateSubscription(token);
   await setSubscriptionTokenCookie(token);
-
-  revalidatePath("/");
-  revalidatePath("/search");
 }
 
 export async function unsubscribeAction() {
@@ -54,7 +46,4 @@ export async function unsubscribeAction() {
   }
 
   await clearSubscriptionTokenCookie();
-
-  revalidatePath("/");
-  revalidatePath("/search");
 }

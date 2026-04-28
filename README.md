@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vercel Daily
+
+Vercel Daily is a Next.js news app built for browsing articles from the Vercel Daily News API. It includes a homepage with breaking news and featured stories, a searchable archive, article detail pages, and an anonymous subscription flow with paywalled content.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start the local development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEWS_API_BASE_URL=
+NEWS_API_BYPASS_TOKEN=
+NEXT_PUBLIC_SITE_URL=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`NEWS_API_BYPASS_TOKEN` is required because the API is protected by Vercel Deployment Protection.
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app uses the Next.js App Router under `src/app`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/(site)` contains the main public routes.
+- `src/app/actions` contains Server Actions for subscription mutations.
+- `src/app/components` contains reusable UI sections and controls.
+- `src/lib/api` contains low-level API clients for the Vercel Daily News API.
+- `src/lib/dal` contains app-level data helpers used by pages and components.
+- `src/lib/subscription.ts` contains cookie helpers for the anonymous subscription token.
+
+## Main Features
+
+- Responsive homepage with breaking news, featured articles, and trending stories.
+- Search page with query, category filtering, pagination, URL-persisted state, and debounced auto-search.
+- Article detail pages with typed content block rendering.
+- Anonymous subscription using an HTTP-only cookie.
+- Paywall UI for non-subscribed users.
+- Root and page-specific metadata, including Open Graph metadata.
+
+## Useful Commands
+
+```bash
+pnpm lint
+pnpm build
+pnpm dev
+```

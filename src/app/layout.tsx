@@ -18,7 +18,7 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html data-scroll-behavior="smooth" lang="en">
       <body className="bg-[var(--background)] text-[var(--foreground)] antialiased">
         <Providers>{children}</Providers>
       </body>

@@ -11,6 +11,9 @@ importers:
       next:
         specifier: 16.2.2
         version: 16.2.2(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      nyan-cat-festival:
+        specifier: ^1.0.3
+        version: 1.0.3
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -1564,6 +1567,9 @@ packages:
 
   node-releases@2.0.37:
     resolution: {integrity: sha512-1h5gKZCF+pO/o3Iqt5Jp7wc9rH3eJJ0+nh/CIoiRwjRxde/hAHyLPXYN4V3CqKAbiZPSeJFSWHmJsbkicta0Eg==}
+
+  nyan-cat-festival@1.0.3:
+    resolution: {integrity: sha512-pdu6IQ5PTVr76xEtGi7cSeSES+T+XYB3T+yUwRfupitDFBpY6Pta+JtNjjjYEnm+RnOxHNHlhgEcfoDmbQ4Jxw==}
 
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -3541,6 +3547,8 @@ snapshots:
       semver: 6.3.1
 
   node-releases@2.0.37: {}
+
+  nyan-cat-festival@1.0.3: {}
 
   object-assign@4.1.1: {}
 

@@ -14,11 +14,6 @@ export async function getSubscriptionTokenFromCookie() {
   return cookieStore.get(SUBSCRIPTION_COOKIE_NAME)?.value;
 }
 
-export async function hasSubscriptionTokenCookie() {
-  const token = await getSubscriptionTokenFromCookie();
-  return Boolean(token);
-}
-
 export async function setSubscriptionTokenCookie(token: string) {
   const cookieStore = await cookies();
   cookieStore.set(SUBSCRIPTION_COOKIE_NAME, token, baseCookieOptions);

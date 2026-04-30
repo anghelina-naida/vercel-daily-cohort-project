@@ -24,6 +24,7 @@ export async function BreakingNewsBanner() {
 
   return (
     <Link
+      prefetch
       href={`/articles/${breakingNews.articleId}`}
       className="flex flex-col gap-2 rounded-3xl border border-[#f0d7ca] bg-[#fff4ed] px-5 py-4 shadow-sm transition-transform hover:-translate-y-0.5 hover:bg-[#ffede2]"
     >

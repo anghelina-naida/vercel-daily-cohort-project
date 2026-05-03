@@ -1,12 +1,8 @@
 import Link from "next/link";
 
-type InlineMarkdownTextProps = {
-  text: string;
-};
-
 const markdownLinkPattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
 
-export function InlineMarkdownText({ text }: InlineMarkdownTextProps) {
+export function InlineMarkdownText({ text }: { text: string }) {
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
 

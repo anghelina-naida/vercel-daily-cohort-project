@@ -3,11 +3,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/app/components/layout/Footer";
 import { Header } from "@/app/components/layout/Header";
 
-type SiteLayoutProps = {
-  children: ReactNode;
-};
-
-export default function SiteLayout({ children }: SiteLayoutProps) {
+export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Header />

@@ -6,11 +6,7 @@ import { formatDate, getArticleHref } from "@/lib/utils";
 import { EmptyState } from "../ui/EmptyState";
 import { SectionHeading } from "../ui/SectionHeading";
 
-type TrendingArticlesProps = {
-  currentArticleId: string;
-};
-
-export async function TrendingArticles({ currentArticleId }: TrendingArticlesProps) {
+export async function TrendingArticles({ currentArticleId }: { currentArticleId: string }) {
   const articles = await getTrendingArticles([currentArticleId]).catch(() => null);
 
   if (!articles) {

@@ -4,11 +4,7 @@ import type { ContentBlock } from "@/lib/types";
 
 import { InlineMarkdownText } from "../ui/InlineMarkdownText";
 
-type ArticleContentProps = {
-  blocks: ContentBlock[];
-};
-
-export function ArticleContent({ blocks }: ArticleContentProps) {
+export function ArticleContent({ blocks }: { blocks: ContentBlock[] }) {
   return (
     <div
       className="mx-auto grid w-full max-w-[42rem] gap-6 text-[1.2rem] leading-[1.9] tracking-[0.002em] text-[var(--article-ink)] sm:text-[1.28rem]"

@@ -2,11 +2,7 @@ import type { Article } from "@/lib/types";
 
 import { InlineMarkdownText } from "../ui/InlineMarkdownText";
 
-type TeaserContentProps = {
-  article: Article;
-};
-
-export function TeaserContent({ article }: TeaserContentProps) {
+export function TeaserContent({ article }: { article: Article }) {
   const firstParagraph = article.content.find((block) => block.type === "paragraph");
 
   return (

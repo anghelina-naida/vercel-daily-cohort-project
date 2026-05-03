@@ -3,12 +3,13 @@ import { getCategories } from "@/lib/dal/articles";
 import { CategorySelect } from "./CategorySelect";
 import { SearchFormControls } from "./SearchFormControls";
 
-type SearchFormProps = {
+export async function SearchForm({
+  initialCategory,
+  initialQuery,
+}: {
   initialCategory?: string;
   initialQuery?: string;
-};
-
-export async function SearchForm({ initialCategory, initialQuery }: SearchFormProps) {
+}) {
   const categories = await getCategories().catch(() => []);
 
   return (

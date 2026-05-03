@@ -41,10 +41,10 @@ export async function getTrendingArticles(excludeIds: string[] = []) {
 }
 
 export async function getBreakingNews() {
-  "use cache";
+  "use cache: remote";
 
   cacheTag("breaking-news");
-  cacheLife({ expire: 60 });
+  cacheLife("minutes");
 
   return fetchBreakingNews();
 }

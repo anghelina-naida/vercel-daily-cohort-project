@@ -3,11 +3,7 @@ import Image from "next/image";
 import type { Article } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 
-type ArticleHeaderProps = {
-  article: Article;
-};
-
-export function ArticleHeader({ article }: ArticleHeaderProps) {
+export function ArticleHeader({ article }: { article: Article }) {
   return (
     <header className="space-y-6">
       <div className="mx-auto flex w-full max-w-[44rem] flex-col gap-4">

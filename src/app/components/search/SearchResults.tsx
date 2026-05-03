@@ -4,13 +4,15 @@ import { EmptyState } from "../ui/EmptyState";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResultCard } from "./SearchResultCard";
 
-type SearchResultsProps = {
+export async function SearchResults({
+  category,
+  page,
+  query,
+}: {
   category?: string;
   page: number;
   query?: string;
-};
-
-export async function SearchResults({ category, page, query }: SearchResultsProps) {
+}) {
   const result = await searchArticles({
     category,
     limit: 5,

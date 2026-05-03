@@ -6,7 +6,6 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const token = request.cookies.get(SUBSCRIPTION_COOKIE_NAME)?.value;
 
-  requestHeaders.set("x-vercel-daily-subscriber", token ? "true" : "false");
   requestHeaders.set("x-vercel-daily-access", token ? "check-subscription" : "paywalled");
 
   return NextResponse.next({

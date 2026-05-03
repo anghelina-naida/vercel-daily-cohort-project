@@ -2,13 +2,15 @@
 
 import { useFormStatus } from "react-dom";
 
-type SubscriptionSubmitButtonProps = {
+export function SubscriptionSubmitButton({
+  className,
+  label,
+  pendingLabel,
+}: {
   className: string;
   label: string;
   pendingLabel: string;
-};
-
-export function SubscriptionSubmitButton({ className, label, pendingLabel }: SubscriptionSubmitButtonProps) {
+}) {
   const { pending } = useFormStatus();
 
   return (

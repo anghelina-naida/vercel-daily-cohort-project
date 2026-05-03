@@ -3,11 +3,7 @@ import Link from "next/link";
 import type { Article } from "@/lib/types";
 import { formatDate, getArticleHref } from "@/lib/utils";
 
-type SearchResultCardProps = {
-  article: Article;
-};
-
-export function SearchResultCard({ article }: SearchResultCardProps) {
+export function SearchResultCard({ article }: { article: Article }) {
   return (
     <article className="rounded-3xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm">
       <p className="text-xs uppercase tracking-[0.3em] text-[var(--accent)]">{article.category}</p>

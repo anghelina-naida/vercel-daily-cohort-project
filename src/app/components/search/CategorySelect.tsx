@@ -1,11 +1,6 @@
 import type { Category } from "@/lib/types";
 
-type CategorySelectProps = {
-  categories: Category[];
-  defaultValue?: string;
-};
-
-export function CategorySelect({ categories, defaultValue }: CategorySelectProps) {
+export function CategorySelect({ categories, defaultValue }: { categories: Category[]; defaultValue?: string }) {
   return (
     <select
       aria-label="Filter stories by category"

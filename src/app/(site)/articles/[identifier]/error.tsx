@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 
-type ArticleErrorProps = {
-  error: Error & { digest?: string };
-  reset: () => void;
-};
-
-export default function ArticleError({ reset }: ArticleErrorProps) {
+export default function ArticleError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <section className="mx-auto flex min-h-[42vh] w-full max-w-3xl flex-col justify-center gap-6 rounded-[2rem] border border-[var(--border)] bg-[var(--card)] px-6 py-12 shadow-sm sm:px-10">
       <p className="text-xs font-medium uppercase tracking-[0.28em] text-[var(--muted)]">Article</p>

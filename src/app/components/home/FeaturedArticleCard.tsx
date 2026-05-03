@@ -4,12 +4,7 @@ import Link from "next/link";
 import type { Article } from "@/lib/types";
 import { formatDate, getArticleHref } from "@/lib/utils";
 
-type FeaturedArticleCardProps = {
-  article: Article;
-  priority?: boolean;
-};
-
-export function FeaturedArticleCard({ article, priority = false }: FeaturedArticleCardProps) {
+export function FeaturedArticleCard({ article, priority = false }: { article: Article; priority?: boolean }) {
   return (
     <article className="flex h-full flex-col rounded-3xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm">
       <div className="relative mb-4 aspect-[16/10] overflow-hidden rounded-2xl bg-[rgba(16,33,43,0.08)]">

@@ -1,8 +1,4 @@
-type SkeletonCardProps = {
-  label: string;
-};
-
-export function SkeletonCard({ label }: SkeletonCardProps) {
+export function SkeletonCard({ label }: { label: string }) {
   return (
     <div
       aria-label={label}

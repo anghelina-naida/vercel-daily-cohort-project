@@ -1,9 +1,4 @@
-type SectionHeadingProps = {
-  eyebrow: string;
-  title: string;
-};
-
-export function SectionHeading({ eyebrow, title }: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="space-y-2">
       <p className="text-sm uppercase tracking-[0.3em] text-[var(--accent)]">{eyebrow}</p>

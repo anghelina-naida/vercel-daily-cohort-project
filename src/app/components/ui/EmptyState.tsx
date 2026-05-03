@@ -1,9 +1,4 @@
-type EmptyStateProps = {
-  description: string;
-  title: string;
-};
-
-export function EmptyState({ description, title }: EmptyStateProps) {
+export function EmptyState({ description, title }: { description: string; title: string }) {
   return (
     <section className="rounded-3xl border border-dashed border-[var(--border)] bg-[var(--card)] p-10 text-center">
       <h2 className="text-2xl font-semibold">{title}</h2>

@@ -10,12 +10,6 @@ import { SkeletonCard } from "@/app/components/ui/SkeletonCard";
 import { getArticleByIdentifier } from "@/lib/dal/articles";
 import { buildArticleMetadata } from "@/lib/metadata";
 
-type ArticlePageProps = {
-  params: Promise<{
-    identifier: string;
-  }>;
-};
-
 function ArticleAccessFallback() {
   return (
     <section
@@ -31,7 +25,13 @@ function ArticleAccessFallback() {
   );
 }
 
-export async function generateMetadata({ params }: ArticlePageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    identifier: string;
+  }>;
+}) {
   const { identifier } = await params;
 
   try {
@@ -44,7 +44,13 @@ export async function generateMetadata({ params }: ArticlePageProps) {
   }
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{
+    identifier: string;
+  }>;
+}) {
   const { identifier } = await params;
   const article = await getArticleByIdentifier(identifier).catch(() => null);
 

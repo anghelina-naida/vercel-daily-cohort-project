@@ -1,51 +1,16 @@
-export type Author = {
-  avatar: string;
-  name: string;
-};
-
-export type ParagraphBlock = {
-  type: "paragraph";
-  text: string;
-};
-
-export type HeadingBlock = {
-  type: "heading";
-  level: 2 | 3;
-  text: string;
-};
-
-export type BlockquoteBlock = {
-  type: "blockquote";
-  text: string;
-};
-
-export type UnorderedListBlock = {
-  type: "unordered-list";
-  items: string[];
-};
-
-export type OrderedListBlock = {
-  type: "ordered-list";
-  items: string[];
-};
-
-export type ImageBlock = {
-  type: "image";
-  alt: string;
-  caption?: string;
-  src: string;
-};
-
 export type ContentBlock =
-  | ParagraphBlock
-  | HeadingBlock
-  | BlockquoteBlock
-  | UnorderedListBlock
-  | OrderedListBlock
-  | ImageBlock;
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; level: 2 | 3; text: string }
+  | { type: "blockquote"; text: string }
+  | { type: "unordered-list"; items: string[] }
+  | { type: "ordered-list"; items: string[] }
+  | { type: "image"; alt: string; caption?: string; src: string };
 
 export type Article = {
-  author: Author;
+  author: {
+    avatar: string;
+    name: string;
+  };
   category: string;
   content: ContentBlock[];
   excerpt: string;
@@ -91,14 +56,12 @@ export type Subscription = {
   updatedAt: string;
 };
 
-export type ApiError = {
-  code: string;
-  message: string;
-};
-
 export type ApiEnvelope<T> = {
   data: T;
-  error?: ApiError;
+  error?: {
+    code: string;
+    message: string;
+  };
   meta?: {
     pagination?: Pagination;
   };

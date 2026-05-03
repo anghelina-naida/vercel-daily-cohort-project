@@ -15,14 +15,6 @@ export const metadata: Metadata = {
   },
 };
 
-type SearchPageProps = {
-  searchParams: Promise<{
-    page?: string | string[];
-    category?: string;
-    query?: string | string[];
-  }>;
-};
-
 function getSearchParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
@@ -52,7 +44,15 @@ function SearchFormFallback() {
   );
 }
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    page?: string | string[];
+    category?: string;
+    query?: string | string[];
+  }>;
+}) {
   const { category, page, query } = await searchParams;
   const currentPage = getPositivePage(page);
   const currentCategory = getOptionalSearchParam(category);

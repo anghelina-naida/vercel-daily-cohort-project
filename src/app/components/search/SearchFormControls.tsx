@@ -5,14 +5,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import nyanCatGif from "nyan-cat-festival/assets/nyancat.gif";
 import { type FormEvent, type ReactNode, useCallback, useEffect, useRef, useState, useTransition } from "react";
 
-type SearchFormControlsProps = {
-  categorySelect: ReactNode;
-  initialQuery?: string;
-};
-
 const AUTO_SEARCH_DEBOUNCE_MS = 900;
 
-export function SearchFormControls({ categorySelect, initialQuery }: SearchFormControlsProps) {
+export function SearchFormControls({
+  categorySelect,
+  initialQuery,
+}: {
+  categorySelect: ReactNode;
+  initialQuery?: string;
+}) {
   const formRef = useRef<HTMLFormElement>(null);
   const pathname = usePathname();
   const router = useRouter();

@@ -2,12 +2,6 @@ import Link from "next/link";
 
 import type { Pagination } from "@/lib/types";
 
-type SearchPaginationProps = {
-  category?: string;
-  pagination: Pagination;
-  query?: string;
-};
-
 function getSearchHref({ category, page, query }: { category?: string; page: number; query?: string }) {
   const params = new URLSearchParams();
 
@@ -36,7 +30,15 @@ function getPageItems(currentPage: number, totalPages: number) {
     .sort((a, b) => a - b);
 }
 
-export function SearchPagination({ category, pagination, query }: SearchPaginationProps) {
+export function SearchPagination({
+  category,
+  pagination,
+  query,
+}: {
+  category?: string;
+  pagination: Pagination;
+  query?: string;
+}) {
   const firstResult = pagination.total === 0 ? 0 : (pagination.page - 1) * pagination.limit + 1;
   const lastResult = Math.min(pagination.page * pagination.limit, pagination.total);
   const pages = getPageItems(pagination.page, pagination.totalPages);

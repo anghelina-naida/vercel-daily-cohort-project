@@ -1,4 +1,4 @@
-import type { ApiEnvelope, ApiError } from "@/lib/types";
+import type { ApiEnvelope } from "@/lib/types";
 
 const API_BASE_URL = process.env.NEWS_API_BASE_URL ?? "https://vercel-daily-news-api.vercel.app/api";
 
@@ -52,8 +52,7 @@ export async function apiEnvelope<T>(path: string, init: RequestInit = {}) {
   }
 
   if (!response.ok || !payload.success) {
-    const error = payload.error as ApiError | undefined;
-    throw new Error(error?.message ?? `Request failed with status ${response.status}`);
+    throw new Error(payload.error?.message ?? `Request failed with status ${response.status}`);
   }
 
   return payload;

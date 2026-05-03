@@ -4,11 +4,7 @@ import { canViewFullArticle } from "@/lib/dal/subscription";
 import { ArticleContent } from "./ArticleContent";
 import { PaywallCTA } from "./PaywallCTA";
 
-type ArticleAccessSectionProps = {
-  continuationBlocks: ContentBlock[];
-};
-
-export async function ArticleAccessSection({ continuationBlocks }: ArticleAccessSectionProps) {
+export async function ArticleAccessSection({ continuationBlocks }: { continuationBlocks: ContentBlock[] }) {
   const isSubscribed = await canViewFullArticle();
 
   if (isSubscribed) {

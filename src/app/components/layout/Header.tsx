@@ -5,6 +5,28 @@ import Link from "next/link";
 import { Navigation } from "./Navigation";
 import { SubscriptionIndicator } from "./SubscriptionIndicator";
 
+function NavigationFallback() {
+  return (
+    <nav aria-label="Primary navigation">
+      <ul className="flex items-center gap-8 text-[1.05rem] font-medium text-[var(--muted)]">
+        <li>
+          <Link className="border-b-2 border-transparent pb-1 transition-colors hover:text-[var(--foreground)]" href="/">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="border-b-2 border-transparent pb-1 transition-colors hover:text-[var(--foreground)]"
+            href="/search"
+          >
+            Search
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
 export function Header() {
   return (
     <header className="border-b border-[var(--border)] bg-white">
@@ -17,7 +39,9 @@ export function Header() {
             />
             <span>Vercel Daily</span>
           </Link>
-          <Navigation />
+          <Suspense fallback={<NavigationFallback />}>
+            <Navigation />
+          </Suspense>
         </div>
 
         <div className="flex items-center">

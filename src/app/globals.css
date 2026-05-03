@@ -104,7 +104,7 @@ button {
       #007aff 66.66% 83.33%,
       #af52de 83.33% 100%
     );
-  animation: nyan-rainbow-slide 1.4s linear infinite;
+  animation: nyan-rainbow-slide 2.4s linear infinite;
   image-rendering: pixelated;
 }
 
@@ -114,7 +114,7 @@ button {
   left: -8.75rem;
   width: 8.75rem;
   height: 2.75rem;
-  animation: nyan-cat-slide 1.4s linear infinite;
+  animation: nyan-cat-slide 2.4s linear infinite;
   image-rendering: pixelated;
   object-fit: cover;
   object-position: center;

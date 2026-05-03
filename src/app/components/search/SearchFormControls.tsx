@@ -127,7 +127,6 @@ function NyanProgressBar() {
       className="nyan-progress md:basis-full"
       role="status"
     >
-      <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--muted)]">Searching stories</span>
       <span className="nyan-progress-track" aria-hidden="true">
         <span className="nyan-rainbow" />
         <Image alt="" className="nyan-cat" height={400} src={nyanCatGif} unoptimized width={400} />

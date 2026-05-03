@@ -11,7 +11,7 @@ import {
 import type { SearchArticlesInput } from "@/lib/types";
 
 export async function getFeaturedArticles() {
-  "use cache";
+  "use cache: remote";
 
   cacheTag("articles");
   cacheTag("featured-articles");
@@ -21,7 +21,7 @@ export async function getFeaturedArticles() {
 }
 
 export async function getArticleByIdentifier(identifier: string) {
-  "use cache";
+  "use cache: remote";
 
   cacheTag("articles");
   cacheTag(`article-${identifier}`);
@@ -31,7 +31,7 @@ export async function getArticleByIdentifier(identifier: string) {
 }
 
 export async function getTrendingArticles(excludeIds: string[] = []) {
-  "use cache";
+  "use cache: remote";
 
   cacheTag("articles");
   cacheTag("trending-articles");
@@ -50,7 +50,7 @@ export async function getBreakingNews() {
 }
 
 export async function searchArticles(input: SearchArticlesInput = {}) {
-  "use cache";
+  "use cache: remote";
 
   cacheTag("articles");
   cacheTag("search-results");
@@ -65,7 +65,7 @@ export async function searchArticles(input: SearchArticlesInput = {}) {
 }
 
 export async function getCategories() {
-  "use cache";
+  "use cache: remote";
 
   cacheTag("categories");
   cacheLife({ expire: 3600 });
